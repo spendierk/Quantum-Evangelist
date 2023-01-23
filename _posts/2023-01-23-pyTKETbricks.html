@@ -7,61 +7,7 @@ background: '/img/posts/03.jpg'
 ---
 
 <h1 id="pytket-bricks">PyTKET Bricks</h1>
-<p>PyTKET is the python wrapper of <a href="https://www.quantinuum.com/developers/tket">TKET</a>, Quantinuum&#39;s open-source advanced software development kit for the creation and execution of programs for gate-based quantum computers. </p>
-<p>The PyTKET bricks were designed as an educational resource to provide a hands-on and fun way to assemble well-known quantum circuits. For example, the bricks can be assembled to represent a Bell State or Grover&#39;s algorithm example. </p>
+<p>The <a href="https://github.com/spendierk/pytket-bricks">PyTKET bricks</a> were designed as an educational resource to provide a hands-on and fun way to assemble well-known quantum circuits. For example, the bricks can be assembled to represent a Bell State or Grover&#39;s algorithm example. </p>
 <p><a href="https://user-images.githubusercontent.com/106914305/209889480-10e965fd-5854-4b76-a36e-4a681a53319e.mp4">https://user-images.githubusercontent.com/106914305/209889480-10e965fd-5854-4b76-a36e-4a681a53319e.mp4</a></p>
-<p>The brick design is based on the PyTKET circuit rendering tool, which offers both traditional quantum circuit design and ZX calculus design. The bricks can be designed after the traditional <a href="https://en.wikipedia.org/wiki/Quantum_logic_gate">H-gates, Z-gates, CX-gates, and CZ-gates,</a> or the <a href="https://en.wikipedia.org/wiki/ZX-calculus">ZX calculaus version with unitary maps and spiders</a> together with qubit zero (q[0]) and qubit one (q[1]) and wire pieces represented as straight lines.</p>
+<p>The brick design is based on the PyTKET circuit rendering tool, which offers both traditional quantum circuit design and ZX calculus design. The bricks can be designed after the traditional <a href="https://en.wikipedia.org/wiki/Quantum_logic_gate">H-gates, Z-gates, CX-gates, and CZ-gates,</a> or the <a href="https://en.wikipedia.org/wiki/ZX-calculus">ZX calculus version with unitary maps and spiders</a> together with qubit zero (q[0]) and qubit one (q[1]) and wire pieces represented as straight lines.</p>
 <p>PyTKET bricks can be enjoyed alone, with friends, or with family.</p>
-<h2 id="sample-circuits-you-can-assemble-with-pytket-bricks">Sample circuits you can assemble with PyTKET bricks</h2>
-<h3 id="1-bell-state-example">1) Bell state example</h3>
-<p>The PyTKET bricks can be arrange to represent a Bell state or Bell pair, after physicist John Stewart Bell. <a href="https://en.wikipedia.org/wiki/Bell_state">This circuit entangles two qubits.</a>. The image below depicts a Bell pair circuit using traditional pyTKET brick gates (left) and ZX calculus brick gates (right).</p>
-<img src="Images/Bell2.jpg" width="600" >
-
-
-<h3 id="2-grovers-algorithm-example">2) Grover&#39;s algorithm example</h3>
-<p>Grover’s algorithm is a quantum search algorithm for an unstructured database, which Lov Grover devised in 1996. Here we use pyTKET bricks to assemble the 2-qubit <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover’s algorithm</a> for the case |w&gt;=|11&gt;. The image below depicts this Grover’s algorithm example circuit using traditional pyTKET brick gates (left) and ZX calculus brick gates (right).</p>
-<img src="img/posts/Grover2.jpg" width="600" >
-
-<h2 id="drawing-a-pytket-circuit-using-python">Drawing a pyTKET circuit using Python</h2>
-<p><a href="https://cqcl.github.io/pytket/manual/index.html">PyTKET</a> is a python module for interfacing with <a href="https://www.quantinuum.com/developers/tket">TKET</a>, a quantum computing toolkit and optimising compiler developed by Quantinuum.</p>
-<p>PyTKET is available for Python 3.9, 3.10 and 3.11, on Linux, MacOS and Windows. To install, run:</p>
-<pre><code class="language-shell">pip install pytket
-</code></pre>
-<p>Then import the PyTKET circuit class and circuit rendering tool:</p>
-<pre><code class="language-shell">from pytket import Circuit, OpType
-from pytket.circuit.display import render_circuit_jupyter
-</code></pre>
-<p>Then for the Bell state circuit run:</p>
-<pre><code class="language-shell">bell = Circuit(2)
-bell.H(0).CX(0,1)
-render_circuit_jupyter(bell)
-</code></pre>
-<p><a href="https://user-images.githubusercontent.com/106914305/214130088-7411305f-9a9e-47c3-bb2d-a1f1cc2cd3d9.mp4">https://user-images.githubusercontent.com/106914305/214130088-7411305f-9a9e-47c3-bb2d-a1f1cc2cd3d9.mp4</a></p>
-<p>The rendered circuit diagram has user interface icons to the left of the display, as shown in the video above. This most leftward icon can be used to toggle between the ZX calculus circuit diagram and a traditional quantum circuit diagram.</p>
-<p>Similarily, to draw the Grover&#39;s algorithm example run:</p>
-<pre><code class="language-shell">grover = Circuit(2)
-grover.H(0).H(1).CZ(0,1).H(0).H(1).Z(0).Z(1).CZ(0,1).H(0).H(1)
-render_circuit_jupyter(grover)
-</code></pre>
-<p><a href="https://user-images.githubusercontent.com/106914305/214130845-92067825-c147-42aa-a5fe-95511b00105a.mp4">https://user-images.githubusercontent.com/106914305/214130845-92067825-c147-42aa-a5fe-95511b00105a.mp4</a></p>
-<h2 id="run-a-sample-circuit-on-a-state-vector-simulator">Run a sample circuit on a state vector simulator</h2>
-<p>Next, we show how to use PyTKET to execute the Bell state example on the <code>AerStateBackend</code> simulator. First, install the pytket-qiskit backend extension</p>
-<pre><code class="language-shell">pip install pytket-qiskit
-</code></pre>
-<p>and then run:</p>
-<pre><code class="language-shell">from pytket.extensions.qiskit import AerStateBackend
-import numpy as np
-
-backend = AerStateBackend() #initialize backend with default settings
-result = backend.run_circuit(bell) #interface for running circuit on a given backend to obtain results
-result_state = result.get_state() #for results we get the full state vector of the output
-print(f&quot;State vector -&gt; {np.round(result_state, 3)}&quot;)   # prints (0,0), (1,0), (0,1), (1,1) states
-</code></pre>
-<p>The printed output is
-<code>State vector -&gt; [0.707+0.j 0.   +0.j 0.   +0.j 0.707+0.j]</code>
-which corrsponds to the expected state function</p>
-<pre><code class="language-math">\left| \psi \right\rangle = \frac{1}{\sqrt{2}} \left( \left| 00 \right\rangle + \left| 11 \right\rangle\right).
-</code></pre>
-<h2 id="note">Note</h2>
-<p>The &quot;pyTKET_bricks_assembly&quot; animation has been created with the stud.io Lego digital design software. This GitHub project is not affiliated in any way with Lego. LEGO are trademarks of the LEGO Group.</p>
-<p>Another quantum computing Lego project is Quantego. It is a Lego model of the IBM Quantum System One quantum computer found at <a href="https://janlahmann.github.io/Quantego/">https://janlahmann.github.io/Quantego/</a>.</p>
