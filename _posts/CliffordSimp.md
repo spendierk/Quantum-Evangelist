@@ -1,3 +1,12 @@
+---
+layout: post
+title: "The `CliffordSimp()` Pass"
+subtitle: " simplifying quantum circuits containing Clifford gates"
+date: 2023-02-21 10:45:13 -0400
+background: '/img/posts/06.jpg'
+---
+
+
 # The `CliffordSimp()` pass in TKET
 
 The `CliffordSimp()` pass in `PyTKET` is an optimization pass that simplifies quantum circuits containing Clifford gates. Clifford gates are a particular class of quantum gates that are efficiently simulatable classically and can be implemented with very high fidelity in practice.
