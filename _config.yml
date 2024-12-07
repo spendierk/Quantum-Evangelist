@@ -1,12 +1,12 @@
 title:              Kathrin Spendier
-email:              kathrin.spendier@quantinuum.com
-description:        Quantum Evangelist - Educator - Researcher
+email:              kathrin.spendier@xprize.org
+description:        Technical Prize Director Quantum Applications - Educator - Researcher
 author:             Kathrin Spendier
-baseurl:            "/quantum-evangelist"
+baseurl:            "/about-me"
 url:                "spendierk.github.io"
 
 # Social Profiles
-twitter_username:   kathrin_tket
+twitter_username:   kathrin_sp
 github_username:    spendierk
 linkedin_username:  kathrin-spendier-1ks
 
